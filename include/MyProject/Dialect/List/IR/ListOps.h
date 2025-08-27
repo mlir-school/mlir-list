@@ -1,4 +1,4 @@
-//===- MyDialectOps.h - MyDialect dialect ops -----------------*- C++ -*-===//
+//===- ListOps.h - List dialect ops -----------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef MYDIALECT_MYDIALECTOPS_H
-#define MYDIALECT_MYDIALECTOPS_H
+#ifndef LIST_LISTOPS_H
+#define LIST_LISTOPS_H
 
 #include "mlir/IR/BuiltinTypes.h"
 #include "mlir/IR/Dialect.h"
@@ -16,6 +16,6 @@
 #include "mlir/Interfaces/SideEffectInterfaces.h"
 
 #define GET_OP_CLASSES
-#include "MyProject/Dialect/MyDialect/IR/MyDialectOps.h.inc"
+#include "MyProject/Dialect/List/IR/ListOps.h.inc"
 
-#endif // MYDIALECT_MYDIALECTOPS_H
+#endif // LIST_LISTOPS_H

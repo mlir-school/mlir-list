@@ -1,1 +1,1 @@
-add_subdirectory(MyDialect)
+add_subdirectory(List)

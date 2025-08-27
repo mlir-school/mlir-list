@@ -2,5 +2,5 @@
 #  See https://llvm.org/LICENSE.txt for license information.
 #  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-from ._mydialect_ops_gen import *
-from .._mlir_libs._myprojectDialectsPybind11.mydialect import *
+from ._list_ops_gen import *
+from .._mlir_libs._myprojectDialectsPybind11.list import *

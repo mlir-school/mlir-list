@@ -1,4 +1,4 @@
-//===-- MyDialectOps.td - Python bindings for mydialect ---*- tablegen -*-===//
+//===-- ListOps.td - Python bindings for list ---*- tablegen -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,9 +6,9 @@
 //
 //===---------------------------------------------------------------------===//
 
-#ifndef PYTHON_BINDINGS_MYDIALECT_OPS
-#define PYTHON_BINDINGS_MYDIALECT_OPS
+#ifndef PYTHON_BINDINGS_LIST_OPS
+#define PYTHON_BINDINGS_LIST_OPS
 
-include "MyProject/Dialect/MyDialect/IR/MyDialectOps.td"
+include "MyProject/Dialect/List/IR/ListOps.td"
 
 #endif

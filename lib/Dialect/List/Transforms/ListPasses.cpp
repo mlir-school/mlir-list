@@ -1,4 +1,4 @@
-//===- MyDialectPasses.cpp - MyDialect passes -------------------*- C++ -*-===//
+//===- ListPasses.cpp - List passes -------------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -10,14 +10,14 @@
 #include "mlir/Rewrite/FrozenRewritePatternSet.h"
 #include "mlir/Transforms/GreedyPatternRewriteDriver.h"
 
-#include "MyProject/Dialect/MyDialect/Transforms/MyDialectPasses.h"
+#include "MyProject/Dialect/List/Transforms/ListPasses.h"
 
-namespace mlir::mydialect {
-#define GEN_PASS_DEF_MYDIALECTSWITCHBARFOO
-#include "MyProject/Dialect/MyDialect/Transforms/MyDialectPasses.h.inc"
+namespace mlir::list {
+#define GEN_PASS_DEF_LISTSWITCHBARFOO
+#include "MyProject/Dialect/List/Transforms/ListPasses.h.inc"
 
 namespace {
-class MyDialectSwitchBarFooRewriter : public OpRewritePattern<func::FuncOp> {
+class ListSwitchBarFooRewriter : public OpRewritePattern<func::FuncOp> {
 public:
   using OpRewritePattern<func::FuncOp>::OpRewritePattern;
   LogicalResult matchAndRewrite(func::FuncOp op,
@@ -30,18 +30,18 @@ public:
   }
 };
 
-class MyDialectSwitchBarFoo
-    : public impl::MyDialectSwitchBarFooBase<MyDialectSwitchBarFoo> {
+class ListSwitchBarFoo
+    : public impl::ListSwitchBarFooBase<ListSwitchBarFoo> {
 public:
-  using impl::MyDialectSwitchBarFooBase<
-      MyDialectSwitchBarFoo>::MyDialectSwitchBarFooBase;
+  using impl::ListSwitchBarFooBase<
+      ListSwitchBarFoo>::ListSwitchBarFooBase;
   void runOnOperation() final {
     RewritePatternSet patterns(&getContext());
-    patterns.add<MyDialectSwitchBarFooRewriter>(&getContext());
+    patterns.add<ListSwitchBarFooRewriter>(&getContext());
     FrozenRewritePatternSet patternSet(std::move(patterns));
     if (failed(applyPatternsGreedily(getOperation(), patternSet)))
       signalPassFailure();
   }
 };
 } // namespace
-} // namespace mlir::mydialect
+} // namespace mlir::list

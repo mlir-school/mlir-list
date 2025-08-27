@@ -1,4 +1,4 @@
-//===- MyDialectDialect.cpp - MyDialect dialect ---------------*- C++ -*-===//
+//===- ListDialect.cpp - List dialect ---------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,23 +6,23 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "MyProject/Dialect/MyDialect/IR/MyDialectDialect.h"
-#include "MyProject/Dialect/MyDialect/IR/MyDialectOps.h"
-#include "MyProject/Dialect/MyDialect/IR/MyDialectTypes.h"
+#include "MyProject/Dialect/List/IR/ListDialect.h"
+#include "MyProject/Dialect/List/IR/ListOps.h"
+#include "MyProject/Dialect/List/IR/ListTypes.h"
 
 using namespace mlir;
-using namespace mlir::mydialect;
+using namespace mlir::list;
 
-#include "MyProject/Dialect/MyDialect/IR/MyDialectOpsDialect.cpp.inc"
+#include "MyProject/Dialect/List/IR/ListOpsDialect.cpp.inc"
 
 //===----------------------------------------------------------------------===//
-// MyDialect dialect.
+// List dialect.
 //===----------------------------------------------------------------------===//
 
-void MyDialectDialect::initialize() {
+void ListDialect::initialize() {
   addOperations<
 #define GET_OP_LIST
-#include "MyProject/Dialect/MyDialect/IR/MyDialectOps.cpp.inc"
+#include "MyProject/Dialect/List/IR/ListOps.cpp.inc"
       >();
   registerTypes();
 }

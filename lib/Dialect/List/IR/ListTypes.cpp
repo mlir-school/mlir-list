@@ -1,4 +1,4 @@
-//===- MyDialectTypes.cpp - MyDialect dialect types -------------*- C++ -*-===//
+//===- ListTypes.cpp - List dialect types -------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,21 +6,21 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "MyProject/Dialect/MyDialect/IR/MyDialectTypes.h"
+#include "MyProject/Dialect/List/IR/ListTypes.h"
 
-#include "MyProject/Dialect/MyDialect/IR/MyDialectDialect.h"
+#include "MyProject/Dialect/List/IR/ListDialect.h"
 #include "mlir/IR/Builders.h"
 #include "mlir/IR/DialectImplementation.h"
 #include "llvm/ADT/TypeSwitch.h"
 
-using namespace mlir::mydialect;
+using namespace mlir::list;
 
 #define GET_TYPEDEF_CLASSES
-#include "MyProject/Dialect/MyDialect/IR/MyDialectOpsTypes.cpp.inc"
+#include "MyProject/Dialect/List/IR/ListOpsTypes.cpp.inc"
 
-void MyDialectDialect::registerTypes() {
+void ListDialect::registerTypes() {
   addTypes<
 #define GET_TYPEDEF_LIST
-#include "MyProject/Dialect/MyDialect/IR/MyDialectOpsTypes.cpp.inc"
+#include "MyProject/Dialect/List/IR/ListOpsTypes.cpp.inc"
       >();
 }

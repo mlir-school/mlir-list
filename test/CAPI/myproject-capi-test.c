@@ -25,13 +25,13 @@ static void registerAllUpstreamDialects(MlirContext ctx) {
 int main(int argc, char **argv) {
   MlirContext ctx = mlirContextCreate();
   // TODO: Create the dialect handles for the builtin dialects and avoid this.
-  // This adds dozens of MB of binary size over just the mydialect dialect.
+  // This adds dozens of MB of binary size over just the list dialect.
   registerAllUpstreamDialects(ctx);
-  mlirDialectHandleRegisterDialect(mlirGetDialectHandle__mydialect__(), ctx);
+  mlirDialectHandleRegisterDialect(mlirGetDialectHandle__list__(), ctx);
 
   MlirModule module = mlirModuleCreateParse(
       ctx, mlirStringRefCreateFromCString("%0 = arith.constant 2 : i32\n"
-                                          "%1 = mydialect.foo %0 : i32\n"));
+                                          "%1 = list.foo %0 : i32\n"));
   if (mlirModuleIsNull(module)) {
     printf("ERROR: Could not parse.\n");
     mlirContextDestroy(ctx);
@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
   MlirOperation op = mlirModuleGetOperation(module);
 
   // CHECK: %[[C:.*]] = arith.constant 2 : i32
-  // CHECK: mydialect.foo %[[C]] : i32
+  // CHECK: list.foo %[[C]] : i32
   mlirOperationDump(op);
 
   mlirModuleDestroy(module);

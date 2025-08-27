@@ -16,14 +16,14 @@ using namespace mlir::python::adaptors;
 
 PYBIND11_MODULE(_myprojectDialectsPybind11, m) {
   //===--------------------------------------------------------------------===//
-  // mydialect dialect
+  // list dialect
   //===--------------------------------------------------------------------===//
-  auto mydialectM = m.def_submodule("mydialect");
+  auto listM = m.def_submodule("list");
 
-  mydialectM.def(
+  listM.def(
       "register_dialect",
       [](MlirContext context, bool load) {
-        MlirDialectHandle handle = mlirGetDialectHandle__mydialect__();
+        MlirDialectHandle handle = mlirGetDialectHandle__list__();
         mlirDialectHandleRegisterDialect(handle, context);
         if (load) {
           mlirDialectHandleLoadDialect(handle, context);

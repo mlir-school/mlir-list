@@ -1,4 +1,4 @@
-//===- MyDialectTypes.td - MyDialect dialect types -------*- tablegen -*-===//
+//===- ListTypes.td - List dialect types -------*- tablegen -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,26 +6,26 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef MYDIALECT_TYPES
-#define MYDIALECT_TYPES
+#ifndef LIST_TYPES
+#define LIST_TYPES
 
 include "mlir/IR/AttrTypeBase.td"
-include "MyProject/Dialect/MyDialect/IR/MyDialectDialect.td"
+include "MyProject/Dialect/List/IR/ListDialect.td"
 
 //===----------------------------------------------------------------------===//
-// MyDialect type definitions
+// List type definitions
 //===----------------------------------------------------------------------===//
 
-class MyDialect_Type<string name, string typeMnemonic, list<Trait> traits = []>
-    : TypeDef<MyDialect_Dialect, name, traits> {
+class List_Type<string name, string typeMnemonic, list<Trait> traits = []>
+    : TypeDef<List_Dialect, name, traits> {
   let mnemonic = typeMnemonic;
 }
 
-def MyDialect_CustomType : MyDialect_Type<"Custom", "custom"> {
-    let summary = "MyDialect custom type";
-    let description = "Custom type in mydialect dialect";
+def List_CustomType : List_Type<"Custom", "custom"> {
+    let summary = "List custom type";
+    let description = "Custom type in list dialect";
     let parameters = (ins StringRefParameter<"the custom value">:$value);
     let assemblyFormat = "`<` $value `>`";
 }
 
-#endif // MYDIALECT_TYPES
+#endif // LIST_TYPES

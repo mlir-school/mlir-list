@@ -1,4 +1,4 @@
-//===- MyDialectOps.cpp - MyDialect dialect ops -----------------*- C++ -*-===//
+//===- ListTypes.h - List dialect types -------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,8 +6,12 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "MyProject/Dialect/MyDialect/IR/MyDialectOps.h"
-#include "MyProject/Dialect/MyDialect/IR/MyDialectDialect.h"
+#ifndef LIST_LISTTYPES_H
+#define LIST_LISTTYPES_H
 
-#define GET_OP_CLASSES
-#include "MyProject/Dialect/MyDialect/IR/MyDialectOps.cpp.inc"
+#include "mlir/IR/BuiltinTypes.h"
+
+#define GET_TYPEDEF_CLASSES
+#include "MyProject/Dialect/List/IR/ListOpsTypes.h.inc"
+
+#endif // LIST_LISTTYPES_H

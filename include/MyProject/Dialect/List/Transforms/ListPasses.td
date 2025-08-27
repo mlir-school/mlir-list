@@ -1,4 +1,4 @@
-//===- MyDialectPsss.td - MyDialect dialect passes -------*- tablegen -*-===//
+//===- ListPsss.td - List dialect passes -------*- tablegen -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,12 +6,12 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef MYDIALECT_PASS
-#define MYDIALECT_PASS
+#ifndef LIST_PASS
+#define LIST_PASS
 
 include "mlir/Pass/PassBase.td"
 
-def MyDialectSwitchBarFoo: Pass<"mydialect-switch-bar-foo", "::mlir::ModuleOp"> {
+def ListSwitchBarFoo: Pass<"list-switch-bar-foo", "::mlir::ModuleOp"> {
   let summary = "Switches the name of a FuncOp named `bar` to `foo` and folds.";
   let description = [{
     Switches the name of a FuncOp named `bar` to `foo` and folds.
@@ -27,4 +27,4 @@ def MyDialectSwitchBarFoo: Pass<"mydialect-switch-bar-foo", "::mlir::ModuleOp"> 
   }];
 }
 
-#endif // MYDIALECT_PASS
+#endif // LIST_PASS

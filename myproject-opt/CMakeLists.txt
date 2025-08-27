@@ -3,8 +3,8 @@ set(LIBS
     MLIROptLib
     MLIRRegisterAllDialects
     MLIRRegisterAllPasses
-    MLIRMyDialect
-    MLIRMyDialectTransforms
+    MLIRList
+    MLIRListTransforms
   )
 add_llvm_executable(myproject-opt myproject-opt.cpp)
 

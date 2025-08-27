@@ -14,16 +14,16 @@
 #include "mlir/Support/FileUtilities.h"
 #include "mlir/Tools/mlir-opt/MlirOptMain.h"
 
-#include "MyProject/Dialect/MyDialect/IR/MyDialectDialect.h"
-#include "MyProject/Dialect/MyDialect/Transforms/MyDialectPasses.h"
+#include "MyProject/Dialect/List/IR/ListDialect.h"
+#include "MyProject/Dialect/List/Transforms/ListPasses.h"
 
 int main(int argc, char **argv) {
   mlir::registerAllPasses();
-  mlir::mydialect::registerPasses();
+  mlir::list::registerPasses();
 
   mlir::DialectRegistry registry;
   registerAllDialects(registry);
-  registry.insert<mlir::mydialect::MyDialectDialect>();
+  registry.insert<mlir::list::ListDialect>();
 
   return mlir::asMainReturnCode(
       mlir::MlirOptMain(argc, argv, "MyProject optimizer driver\n", registry));

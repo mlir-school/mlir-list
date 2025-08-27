@@ -15,11 +15,11 @@ declare_mlir_python_sources(MyProjectPythonSources)
 declare_mlir_dialect_python_bindings(
   ADD_TO_PARENT MyProjectPythonSources
   ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mlir_myproject"
-  TD_FILE dialects/MyDialectOps.td
+  TD_FILE dialects/ListOps.td
   SOURCES
-    dialects/mydialect_pybind11.py
-    dialects/mydialect_nanobind.py
-  DIALECT_NAME mydialect)
+    dialects/list_pybind11.py
+    dialects/list_nanobind.py
+  DIALECT_NAME list)
 
 
 declare_mlir_python_extension(MyProjectPythonSources.Pybind11Extension

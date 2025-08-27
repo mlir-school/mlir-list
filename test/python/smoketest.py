@@ -6,21 +6,21 @@ from mlir_myproject.ir import *
 from mlir_myproject.dialects import builtin as builtin_d
 
 if sys.argv[1] == "pybind11":
-    from mlir_myproject.dialects import mydialect_pybind11 as mydialect_d
+    from mlir_myproject.dialects import list_pybind11 as list_d
 elif sys.argv[1] == "nanobind":
-    from mlir_myproject.dialects import mydialect_nanobind as mydialect_d
+    from mlir_myproject.dialects import list_nanobind as list_d
 else:
     raise ValueError("Expected either pybind11 or nanobind as arguments")
 
 
 with Context():
-    mydialect_d.register_dialect()
+    list_d.register_dialect()
     module = Module.parse(
         """
     %0 = arith.constant 2 : i32
-    %1 = mydialect.foo %0 : i32
+    %1 = list.foo %0 : i32
     """
     )
     # CHECK: %[[C:.*]] = arith.constant 2 : i32
-    # CHECK: mydialect.foo %[[C]] : i32
+    # CHECK: list.foo %[[C]] : i32
     print(str(module))

@@ -15,7 +15,7 @@
 extern "C" {
 #endif
 
-MLIR_DECLARE_CAPI_DIALECT_REGISTRATION(MyDialect, mydialect);
+MLIR_DECLARE_CAPI_DIALECT_REGISTRATION(List, list);
 
 #ifdef __cplusplus
 }

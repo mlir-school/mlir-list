@@ -11,7 +11,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "MyProject/Dialect/MyDialect/IR/MyDialectDialect.h"
+#include "MyProject/Dialect/List/IR/ListDialect.h"
 #include "mlir/IR/DialectRegistry.h"
 #include "mlir/IR/Operation.h"
 #include "mlir/InitAllTranslations.h"

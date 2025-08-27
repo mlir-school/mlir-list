@@ -1,4 +1,4 @@
-//===- MyDialectDialect.h - MyDialect dialect -----------------*- C++ -*-===//
+//===- ListDialect.h - List dialect -----------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,12 +6,12 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef MYDIALECT_MYDIALECTDIALECT_H
-#define MYDIALECT_MYDIALECTDIALECT_H
+#ifndef LIST_LISTDIALECT_H
+#define LIST_LISTDIALECT_H
 
 #include "mlir/Bytecode/BytecodeOpInterface.h"
 #include "mlir/IR/Dialect.h"
 
-#include "MyProject/Dialect/MyDialect/IR/MyDialectOpsDialect.h.inc"
+#include "MyProject/Dialect/List/IR/ListOpsDialect.h.inc"
 
-#endif // MYDIALECT_MYDIALECTDIALECT_H
+#endif // LIST_LISTDIALECT_H
