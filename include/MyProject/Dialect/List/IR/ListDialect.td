@@ -17,7 +17,7 @@ include "mlir/IR/OpBase.td"
 
 def List_Dialect : Dialect {
     let name = "list";
-    let summary = "A list out-of-tree MLIR dialect.";
+    let summary = "The List dialect.";
     let description = [{
         This dialect is an example of an out-of-tree MLIR dialect designed to
         illustrate the basic setup required to develop MLIR-based tools without

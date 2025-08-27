@@ -21,11 +21,15 @@ class List_Type<string name, string typeMnemonic, list<Trait> traits = []>
   let mnemonic = typeMnemonic;
 }
 
-def List_CustomType : List_Type<"Custom", "custom"> {
-    let summary = "List custom type";
-    let description = "Custom type in list dialect";
-    let parameters = (ins StringRefParameter<"the custom value">:$value);
-    let assemblyFormat = "`<` $value `>`";
+def List_ElementType: AnyTypeOf<[AnyInteger, AnyFloat]>;
+
+def List_ListType : List_Type<"List", "list"> {
+    let summary = "List list type";
+    let description = "List type in list dialect";
+    let parameters = (ins List_ElementType:$element_type);
+    let assemblyFormat = [{
+	`<` $element_type `>`
+    }];
 }
 
 #endif // LIST_TYPES

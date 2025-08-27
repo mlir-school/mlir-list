@@ -9,8 +9,8 @@ module {
         return
     }
 
-    // CHECK-LABEL: func @list_types(%arg0: !list.custom<"10">)
-    func.func @list_types(%arg0: !list.custom<"10">) {
+    // CHECK-LABEL: func @list_types(%arg0: !list.list<i32>)
+    func.func @list_types(%arg0: !list.list<i32>) {
         return
     }
 }

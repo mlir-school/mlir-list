@@ -40,4 +40,71 @@ def List_FooOp : List_Op<"foo", [Pure,
     }];
 }
 
+def List_RangeOp : List_Op<"range", [Pure]> {
+    let summary = "Create a list from a range.";
+    let description = [{
+	TODO
+    }];
+
+    let arguments = (ins I32:$lowerBound,
+			 I32:$upperBound);
+    let results = (outs AnyTypeOf<[List_ListType]>:$result);
+    // This version is better, but the whole type is not printed
+    //let results = (outs List_ListType:$result);
+
+    let assemblyFormat = [{
+        $lowerBound `to` $upperBound attr-dict `:` type($result)
+    }];
+}
+
+def List_LengthOp : List_Op<"length", [Pure]> {
+    let summary = "Get the length of a list.";
+    let description = [{
+	TODO
+    }];
+
+    let arguments = (ins AnyTypeOf<[List_ListType]>:$list);
+    // This version is better, but the whole type is not printed
+    //let arguments = (ins List_ListType:$list);
+    let results = (outs I32:$result);
+
+    let assemblyFormat = [{
+        $list attr-dict `:` type($list) `->` type($result)
+    }];
+}
+
+def List_MapOp : List_Op<"map", [AffineScope, SingleBlockImplicitTerminator<"YieldOp">]> {
+    let summary = "A yield op for list map.";
+    let description = [{
+	TODO
+    }];
+
+    let arguments = (ins List_ListType:$list);
+    let results = (outs List_ListType:$result);
+    
+    let regions = (region SizedRegion<1>:$body);
+
+    let extraClassDeclaration = [{
+	// Get induction Variable
+	Value getInductionVar() { return getBody().getArgument(0); }
+    }];
+    let hasCustomAssemblyFormat = 1;
+    // hasVerifier = 1;
+}
+
+def List_YieldOp : List_Op<"yield", [HasParent<"MapOp">, Terminator]> {
+    let summary = "A yield op for list map.";
+    let description = [{
+	TODO
+    }];
+
+    let arguments = (ins Variadic<List_ElementType>:$values);
+    let builders = [OpBuilder<(ins), [{ /* nothing to do */ }]>];
+
+    let assemblyFormat = [{
+        attr-dict ($values^ `:` type($values))?
+    }];
+    // hasVerifier = 1;
+}
+
 #endif // LIST_OPS
