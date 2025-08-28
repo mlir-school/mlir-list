@@ -6,6 +6,20 @@
 //
 //===----------------------------------------------------------------------===//
 
+#include "mlir/IR/Block.h"
+#include "mlir/IR/MLIRContext.h"
+#include "mlir/IR/OpImplementation.h"
+#include "mlir/IR/Attributes.h"
+#include "mlir/IR/BuiltinOps.h"
+#include "mlir/IR/DialectImplementation.h"
+#include "mlir/IR/IRMapping.h"
+#include "mlir/IR/Operation.h"
+#include "mlir/IR/PatternMatch.h"
+#include "mlir/IR/TypeRange.h"
+#include "mlir/IR/ValueRange.h"
+
+#include "mlir/Dialect/Arith/IR/Arith.h"
+
 #include "MyProject/Dialect/List/IR/ListOps.h"
 #include "MyProject/Dialect/List/IR/ListDialect.h"
 #include "MyProject/Dialect/List/IR/ListTypes.h"
@@ -17,7 +31,7 @@ using namespace mlir;
 using namespace list;
 
 //===----------------------------------------------------------------------===//
-// MapOpOp
+// MapOp
 //===----------------------------------------------------------------------===//
 
 void MapOp::print(OpAsmPrinter &p) {
@@ -83,3 +97,51 @@ ParseResult MapOp::parse(OpAsmParser &parser, OperationState &result) {
   return success();
 }
 
+LogicalResult MapOp::verify() {
+  // Check that the type of induction variable is the same as the inner type of input list
+  auto inputElementType = this->getList().getType().getElementType();
+  auto inductionVarType = this->getInductionVar().getType();
+  if (inputElementType != inductionVarType)
+    return emitError() << "Type of induction var (" << inductionVarType
+		       << ") is not the same as the inner type of the input list ("
+		       << inputElementType << ")";
+  return success();
+}
+
+//===----------------------------------------------------------------------===//
+// LengthOp
+//===----------------------------------------------------------------------===//
+
+namespace {
+struct EraseLengthOfRange : public OpRewritePattern<LengthOp> {
+  using OpRewritePattern<LengthOp>::OpRewritePattern;
+
+  LogicalResult matchAndRewrite(LengthOp lengthOp,
+                                PatternRewriter &rewriter) const override {
+    // Get the list
+    auto list = lengthOp.getList();
+
+    if (!list.getDefiningOp())
+      return failure();
+
+    if (!list.hasOneUse())
+      return failure();
+
+    if (auto rangeOp = dyn_cast<list::RangeOp>(*list.getDefiningOp())) {
+	auto lowerBound = rangeOp.getLowerBound();
+	auto upperBound = rangeOp.getUpperBound();
+	auto length = rewriter.create<arith::SubIOp>(lengthOp.getLoc(), upperBound, lowerBound).getResult();
+	rewriter.eraseOp(rangeOp);
+	rewriter.replaceOp(lengthOp, length);
+	return success();
+    }
+
+    return failure();
+  }
+};
+} // namespace
+
+void LengthOp::getCanonicalizationPatterns(RewritePatternSet &results,
+						 MLIRContext *context) {
+  results.add<EraseLengthOfRange>(context);
+}
