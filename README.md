@@ -1,34 +1,81 @@
-# An out-of-tree MLIR dialect
+# MLIR-List: An out-of-tree MLIR dialect for List-Lang
 
-This project is coming from the MLIR standalone example available in llvm-project.
+Welcome in this project, where you will learn how to create your first dialect in the standard ODS/C++ way.
+The session is organized in several exercises, each one in a separate Git branch.
 
-This is an example of an out-of-tree [MLIR](https://mlir.llvm.org/) dialect along with a myproject `opt`-like tool to operate on that dialect.
+## General information
 
-## Building - Component Build
+### Installation
 
-This setup assumes that you have built LLVM and MLIR in `$BUILD_DIR` and installed them to `$PREFIX`. To build and launch the tests, run
-```sh
-mkdir build && cd build
-cmake -G Ninja .. -DMLIR_DIR=$PREFIX/lib/cmake/mlir -DLLVM_EXTERNAL_LIT=$BUILD_DIR/bin/llvm-lit
-cmake --build . --target check-myproject
+The session is a hand-on where you will actually modify an out-of-tree MLIR project (named *mlir-list*). To build it, you need an environment with prebuilt llvm-project:
+
+#### Option 1: With Docker
+
+This is the simpliest option. You can download a prebuilt docker image by running:
 ```
-To build the documentation from the TableGen description of the dialect operations, run
-```sh
-cmake --build . --target mlir-doc
+docker pull electrikspace/mlir-tutorial
 ```
-**Note**: Make sure to pass `-DLLVM_INSTALL_UTILS=ON` when building LLVM with CMake in order to install `FileCheck` to the chosen installation prefix.
-
-## Building - Monolithic Build
-
-This setup assumes that you build the project as part of a monolithic LLVM build via the `LLVM_EXTERNAL_PROJECTS` mechanism.
-To build LLVM, MLIR, the example and launch the tests run
-```sh
-mkdir build && cd build
-cmake -G Ninja `$LLVM_SRC_DIR/llvm` \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DLLVM_TARGETS_TO_BUILD=host \
-    -DLLVM_ENABLE_PROJECTS=mlir \
-    -DLLVM_EXTERNAL_PROJECTS=myproject-dialect -DLLVM_EXTERNAL_MYPROJECT_DIALECT_SOURCE_DIR=../
-cmake --build . --target check-myproject
+Then you can run the docker and work inside with:
 ```
-Here, `$LLVM_SRC_DIR` needs to point to the root of the monorepo.
+docker run -it electrikspace/mlir-tutorial
+```
+If you want edit files locally and build with from the docker, we suggest you to clone the project and mount it in the docker:
+```
+git clone https://github.com/ElectrikSpace/mlir-list.git
+chmod 777 mlir-list
+docker run --rm -it -v "$(realpath ./mlir-list):/home/mlir/mlir-list" electrikspace/mlir-tutorial
+```
+
+#### Option 2: With prebuilt packages
+
+If you want to work locally, a prebuilt llvm-project with MLIR is available as a Python package.
+
+First, you need to install some dependancies and utils. The following commands have been tested on *Ubuntu24.10*:
+```
+sudo apt install python3 python3-pip python3-venv git clang lld
+```
+*Note: lld allows you to reduce the link time of mlir binaries over ld*
+
+Create a Python virtual env (recommended):
+```
+python3 -m venv venv
+source venv/bin/activate
+```
+Install some Python dependancies:
+```
+pip install lit pybind11 cmake ninja nanobind
+```
+Then install the prebuilt llvm-project with:
+```
+pip install --index-url https://gitlab.inria.fr/api/v4/groups/corse/-/packages/pypi/simple mlir-dev
+```
+Finally clone the session's project:
+```
+git clone https://github.com/ElectrikSpace/mlir-list.git && cd mlir-list
+```
+
+### Build the project and run the tests
+
+```sh
+./build.sh
+```
+*Don't hesitate to take a look at the installation scripts. The Dockerfile used to build the image is located here: https://github.com/ElectrikSpace/mlir-tutorial-docker*
+
+### List all exercises
+
+```sh
+git branch -a
+```
+
+### Start an exercise
+```sh
+git checkout ex<number>
+```
+
+Note: If you have already work on a previous exercise, you can save your work:
+```
+git add -u && git commit -m "My super work"
+```
+
+Then, follow the instruction written in the **README.md** file.
+
