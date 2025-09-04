@@ -56,7 +56,6 @@ tools = [
     "mlir-opt",
     "myproject-capi-test",
     "myproject-opt",
-    "myproject-translate",
 ]
 
 llvm_config.add_tool_substitutions(tools, tool_dirs)

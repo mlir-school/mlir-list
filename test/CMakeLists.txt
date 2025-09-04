@@ -13,7 +13,6 @@ set(MYPROJECT_TEST_DEPENDS
         FileCheck count not
         myproject-capi-test
         myproject-opt
-        myproject-translate
         )
 if(MLIR_ENABLE_BINDINGS_PYTHON)
   list(APPEND MYPROJECT_TEST_DEPENDS MyProjectPythonModules)
