@@ -21,7 +21,7 @@ docker run -it electrikspace/mlir-tutorial
 ```
 If you want edit files locally and build with from the docker, we suggest you to clone the project and mount it in the docker:
 ```
-git clone https://github.com/ElectrikSpace/mlir-list.git
+git clone https://github.com/mlir-school/mlir-list.git
 chmod 777 mlir-list
 docker run --rm -it -v "$(realpath ./mlir-list):/home/mlir/mlir-list" electrikspace/mlir-tutorial
 ```
@@ -51,7 +51,7 @@ pip install --index-url https://gitlab.inria.fr/api/v4/groups/corse/-/packages/p
 ```
 Finally clone the session's project:
 ```
-git clone https://github.com/ElectrikSpace/mlir-list.git && cd mlir-list
+git clone https://github.com/mlir-school/mlir-list.git && cd mlir-list
 ```
 
 ### Build the project and run the tests
