@@ -1,4 +1,4 @@
-//===- myproject-opt.cpp ---------------------------------------*- C++ -*-===//
+//===- listproject-opt.cpp ---------------------------------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -14,8 +14,8 @@
 #include "mlir/Support/FileUtilities.h"
 #include "mlir/Tools/mlir-opt/MlirOptMain.h"
 
-#include "MyProject/Dialect/List/IR/ListDialect.h"
-#include "MyProject/Dialect/List/Transforms/ListPasses.h"
+#include "ListProject/Dialect/List/IR/ListDialect.h"
+#include "ListProject/Dialect/List/Transforms/ListPasses.h"
 
 int main(int argc, char **argv) {
   mlir::registerAllPasses();
@@ -26,5 +26,5 @@ int main(int argc, char **argv) {
   registry.insert<mlir::list::ListDialect>();
 
   return mlir::asMainReturnCode(
-      mlir::MlirOptMain(argc, argv, "MyProject optimizer driver\n", registry));
+      mlir::MlirOptMain(argc, argv, "ListProject optimizer driver\n", registry));
 }

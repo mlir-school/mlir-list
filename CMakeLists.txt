@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20.0)
-project(myproject-dialect LANGUAGES CXX C)
+project(listproject-dialect LANGUAGES CXX C)
 
 set(CMAKE_BUILD_WITH_INSTALL_NAME_DIR ON)
 
@@ -55,4 +55,4 @@ if(MLIR_ENABLE_BINDINGS_PYTHON)
   add_subdirectory(python)
 endif()
 add_subdirectory(test)
-add_subdirectory(myproject-opt)
+add_subdirectory(listproject-opt)

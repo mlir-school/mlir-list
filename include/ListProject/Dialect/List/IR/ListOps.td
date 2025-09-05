@@ -9,7 +9,7 @@
 #ifndef LIST_OPS
 #define LIST_OPS
 
-include "MyProject/Dialect/List/IR/ListTypes.td"
+include "ListProject/Dialect/List/IR/ListTypes.td"
 include "mlir/Interfaces/InferTypeOpInterface.td"
 include "mlir/Interfaces/SideEffectInterfaces.td"
 

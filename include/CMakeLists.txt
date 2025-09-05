@@ -1,1 +1,1 @@
-add_subdirectory(MyProject)
+add_subdirectory(ListProject)

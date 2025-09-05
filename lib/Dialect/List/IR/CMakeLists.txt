@@ -4,7 +4,7 @@ add_mlir_dialect_library(MLIRList
 	ListOps.cpp
 
         ADDITIONAL_HEADER_DIRS
-	${PROJECT_SOURCE_DIR}/include/MyProject/Dialect/List
+	${PROJECT_SOURCE_DIR}/include/ListProject/Dialect/List
 
         DEPENDS
 	MLIRListOpsIncGen

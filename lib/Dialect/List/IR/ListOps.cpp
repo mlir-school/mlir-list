@@ -20,12 +20,12 @@
 
 #include "mlir/Dialect/Arith/IR/Arith.h"
 
-#include "MyProject/Dialect/List/IR/ListOps.h"
-#include "MyProject/Dialect/List/IR/ListDialect.h"
-#include "MyProject/Dialect/List/IR/ListTypes.h"
+#include "ListProject/Dialect/List/IR/ListOps.h"
+#include "ListProject/Dialect/List/IR/ListDialect.h"
+#include "ListProject/Dialect/List/IR/ListTypes.h"
 
 #define GET_OP_CLASSES
-#include "MyProject/Dialect/List/IR/ListOps.cpp.inc"
+#include "ListProject/Dialect/List/IR/ListOps.cpp.inc"
 
 using namespace mlir;
 using namespace list;

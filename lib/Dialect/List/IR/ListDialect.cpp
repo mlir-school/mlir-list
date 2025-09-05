@@ -6,14 +6,14 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "MyProject/Dialect/List/IR/ListDialect.h"
-#include "MyProject/Dialect/List/IR/ListOps.h"
-#include "MyProject/Dialect/List/IR/ListTypes.h"
+#include "ListProject/Dialect/List/IR/ListDialect.h"
+#include "ListProject/Dialect/List/IR/ListOps.h"
+#include "ListProject/Dialect/List/IR/ListTypes.h"
 
 using namespace mlir;
 using namespace mlir::list;
 
-#include "MyProject/Dialect/List/IR/ListOpsDialect.cpp.inc"
+#include "ListProject/Dialect/List/IR/ListOpsDialect.cpp.inc"
 
 //===----------------------------------------------------------------------===//
 // List dialect.
@@ -22,7 +22,7 @@ using namespace mlir::list;
 void ListDialect::initialize() {
   addOperations<
 #define GET_OP_LIST
-#include "MyProject/Dialect/List/IR/ListOps.cpp.inc"
+#include "ListProject/Dialect/List/IR/ListOps.cpp.inc"
       >();
   registerTypes();
 }

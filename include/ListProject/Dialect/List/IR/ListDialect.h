@@ -12,6 +12,6 @@
 #include "mlir/Bytecode/BytecodeOpInterface.h"
 #include "mlir/IR/Dialect.h"
 
-#include "MyProject/Dialect/List/IR/ListOpsDialect.h.inc"
+#include "ListProject/Dialect/List/IR/ListOpsDialect.h.inc"
 
 #endif // LIST_LISTDIALECT_H

@@ -10,7 +10,7 @@
 #define LIST_TYPES
 
 include "mlir/IR/AttrTypeBase.td"
-include "MyProject/Dialect/List/IR/ListDialect.td"
+include "ListProject/Dialect/List/IR/ListDialect.td"
 
 //===----------------------------------------------------------------------===//
 // List type definitions

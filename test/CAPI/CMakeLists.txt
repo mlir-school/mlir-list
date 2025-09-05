@@ -2,19 +2,19 @@
 # that we want to bundle together. Then we link a simple C executable
 # against it to demonstrate that it does have the fully self contained
 # core MLIR library and our own list dialect.
-add_mlir_aggregate(MyProjectCAPITestLib
+add_mlir_aggregate(ListProjectCAPITestLib
   SHARED
   EMBED_LIBS
   MLIRCAPIIR
   # TODO: Remove this in favor of showing fine grained dialect registration
   # (once available).
   MLIRCAPIRegisterEverything
-  MyProjectCAPI
+  ListProjectCAPI
 )
 
-add_llvm_executable(myproject-capi-test
-  myproject-capi-test.c
+add_llvm_executable(listproject-capi-test
+  listproject-capi-test.c
 )
-llvm_update_compile_flags(myproject-capi-test)
-target_link_libraries(myproject-capi-test
-  PRIVATE MyProjectCAPITestLib)
+llvm_update_compile_flags(listproject-capi-test)
+target_link_libraries(listproject-capi-test
+  PRIVATE ListProjectCAPITestLib)

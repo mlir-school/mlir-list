@@ -10,11 +10,11 @@
 #include "mlir/Rewrite/FrozenRewritePatternSet.h"
 #include "mlir/Transforms/GreedyPatternRewriteDriver.h"
 
-#include "MyProject/Dialect/List/Transforms/ListPasses.h"
+#include "ListProject/Dialect/List/Transforms/ListPasses.h"
 
 namespace mlir::list {
 #define GEN_PASS_DEF_LISTSWITCHBARFOO
-#include "MyProject/Dialect/List/Transforms/ListPasses.h.inc"
+#include "ListProject/Dialect/List/Transforms/ListPasses.h.inc"
 
 namespace {
 class ListSwitchBarFooRewriter : public OpRewritePattern<func::FuncOp> {

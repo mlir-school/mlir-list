@@ -1,4 +1,4 @@
-//===- myproject-cap-demo.c - Simple demo of C-API -----------------------===//
+//===- listproject-cap-demo.c - Simple demo of C-API -----------------------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM
 // Exceptions.
@@ -7,11 +7,11 @@
 //
 //===----------------------------------------------------------------------===//
 
-// RUN: myproject-capi-test 2>&1 | FileCheck %s
+// RUN: listproject-capi-test 2>&1 | FileCheck %s
 
 #include <stdio.h>
 
-#include "MyProject-c/Dialects.h"
+#include "ListProject-c/Dialects.h"
 #include "mlir-c/IR.h"
 #include "mlir-c/RegisterEverything.h"
 

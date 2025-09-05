@@ -6,9 +6,9 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "MyProject-c/Dialects.h"
+#include "ListProject-c/Dialects.h"
 
-#include "MyProject/Dialect/List/IR/ListDialect.h"
+#include "ListProject/Dialect/List/IR/ListDialect.h"
 #include "mlir/CAPI/Registration.h"
 
 MLIR_DEFINE_CAPI_DIALECT_REGISTRATION(List, list,

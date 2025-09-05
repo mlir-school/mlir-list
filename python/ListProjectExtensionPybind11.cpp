@@ -1,7 +1,7 @@
-//===- MyProjectExtension.cpp - Extension module --------------------------===//
+//===- ListProjectExtensionPybind11.cpp - Extension module ------------------===//
 //
-// This is the nanobind version of the example module. There is also a pybind11
-// example in MyProjectExtensionPybind11.cpp.
+// This is the pybind11 version of the example module. There is also a nanobind
+// example in ListProjectExtensionNanobind.cpp.
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -9,13 +9,12 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "MyProject-c/Dialects.h"
-#include "mlir/Bindings/Python/Nanobind.h"
-#include "mlir/Bindings/Python/NanobindAdaptors.h"
+#include "ListProject-c/Dialects.h"
+#include "mlir/Bindings/Python/PybindAdaptors.h"
 
-namespace nb = nanobind;
+using namespace mlir::python::adaptors;
 
-NB_MODULE(_myprojectDialectsNanobind, m) {
+PYBIND11_MODULE(_listprojectDialectsPybind11, m) {
   //===--------------------------------------------------------------------===//
   // list dialect
   //===--------------------------------------------------------------------===//
@@ -30,5 +29,5 @@ NB_MODULE(_myprojectDialectsNanobind, m) {
           mlirDialectHandleLoadDialect(handle, context);
         }
       },
-      nb::arg("context").none() = nb::none(), nb::arg("load") = true);
+      py::arg("context") = py::none(), py::arg("load") = true);
 }

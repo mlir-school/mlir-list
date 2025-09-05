@@ -12,6 +12,6 @@
 #include "mlir/IR/BuiltinTypes.h"
 
 #define GET_TYPEDEF_CLASSES
-#include "MyProject/Dialect/List/IR/ListOpsTypes.h.inc"
+#include "ListProject/Dialect/List/IR/ListOpsTypes.h.inc"
 
 #endif // LIST_LISTTYPES_H

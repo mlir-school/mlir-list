@@ -1,4 +1,4 @@
-// RUN: myproject-opt %s | myproject-opt | FileCheck %s
+// RUN: listproject-opt %s | listproject-opt | FileCheck %s
 
 module {
     // CHECK-LABEL: func @bar()

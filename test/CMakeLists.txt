@@ -11,18 +11,18 @@ configure_lit_site_cfg(
 
 set(MYPROJECT_TEST_DEPENDS
         FileCheck count not
-        myproject-capi-test
-        myproject-opt
+        listproject-capi-test
+        listproject-opt
         )
 if(MLIR_ENABLE_BINDINGS_PYTHON)
-  list(APPEND MYPROJECT_TEST_DEPENDS MyProjectPythonModules)
+  list(APPEND MYPROJECT_TEST_DEPENDS ListProjectPythonModules)
 endif()
 
-add_lit_testsuite(check-myproject "Running the myproject regression tests"
+add_lit_testsuite(check-listproject "Running the listproject regression tests"
         ${CMAKE_CURRENT_BINARY_DIR}
 	DEPENDS ${MYPROJECT_TEST_DEPENDS}
         )
-set_target_properties(check-myproject PROPERTIES FOLDER "Tests")
+set_target_properties(check-listproject PROPERTIES FOLDER "Tests")
 
 add_lit_testsuites(MYPROJECT ${CMAKE_CURRENT_SOURCE_DIR} DEPENDS ${MYPROJECT_TEST_DEPENDS})
 

@@ -15,6 +15,8 @@ cmake -G Ninja \
   -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
   -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
   -Dpybind11_DIR=`pybind11-config --cmakedir` \
+  -DPython_FIND_VIRTUALENV=FIRST \
+  -DPython3_FIND_VIRTUALENV=FIRST \
   -DLLVM_ENABLE_LLD=On \
   -DLLVM_BUILD_LLVM_DYLIB=ON \
   -DLLVM_LINK_LLVM_DYLIB=ON \
@@ -22,5 +24,5 @@ cmake -G Ninja \
   -Wno-dev \
   ..
 
-cmake --build . --target check-myproject
+cmake --build . --target check-listproject
 

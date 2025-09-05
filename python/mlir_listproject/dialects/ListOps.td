@@ -9,6 +9,6 @@
 #ifndef PYTHON_BINDINGS_LIST_OPS
 #define PYTHON_BINDINGS_LIST_OPS
 
-include "MyProject/Dialect/List/IR/ListOps.td"
+include "ListProject/Dialect/List/IR/ListOps.td"
 
 #endif
