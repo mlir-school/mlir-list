@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo=electrikspace
+image="$repo"/mlir-tutorial:latest
+
+# Note that this limits commands to non quoted arguments, would require re-quoting...
+exec docker run --rm -it -v "$PWD:/home/mlir/mlir-list" -w "/home/mlir/mlir-list" "$image" bash -c "$*"
