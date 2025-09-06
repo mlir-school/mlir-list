@@ -11,19 +11,11 @@
 
 include "mlir/Pass/PassBase.td"
 
-def ListSwitchBarFoo: Pass<"list-switch-bar-foo", "::mlir::ModuleOp"> {
-  let summary = "Switches the name of a FuncOp named `bar` to `foo` and folds.";
+def ListRemoveSomeFoo: Pass<"list-remove-some-foo", "::mlir::ModuleOp"> {
+  let summary = "Remove some `foo` operations.";
   let description = [{
-    Switches the name of a FuncOp named `bar` to `foo` and folds.
-    ```
-    func.func @bar() {
-      return
-    }
-    // Gets transformed to:
-    func.func @foo() {
-      return
-    }
-    ```
+    Identify the `list.foo` operation with an `useless` attribute, and
+    remove them.
   }];
 }
 

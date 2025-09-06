@@ -13,34 +13,26 @@
 #include "ListProject/Dialect/List/Transforms/ListPasses.h"
 
 namespace mlir::list {
-#define GEN_PASS_DEF_LISTSWITCHBARFOO
+#define GEN_PASS_DEF_LISTREMOVESOMEFOO
 #include "ListProject/Dialect/List/Transforms/ListPasses.h.inc"
 
 namespace {
-class ListSwitchBarFooRewriter : public OpRewritePattern<func::FuncOp> {
+class ListRemoveSomeFoo
+    : public impl::ListRemoveSomeFooBase<ListRemoveSomeFoo> {
 public:
-  using OpRewritePattern<func::FuncOp>::OpRewritePattern;
-  LogicalResult matchAndRewrite(func::FuncOp op,
-                                PatternRewriter &rewriter) const final {
-    if (op.getSymName() == "bar") {
-      rewriter.modifyOpInPlace(op, [&op]() { op.setSymName("foo"); });
-      return success();
-    }
-    return failure();
-  }
-};
-
-class ListSwitchBarFoo
-    : public impl::ListSwitchBarFooBase<ListSwitchBarFoo> {
-public:
-  using impl::ListSwitchBarFooBase<
-      ListSwitchBarFoo>::ListSwitchBarFooBase;
+  using impl::ListRemoveSomeFooBase<
+      ListRemoveSomeFoo>::ListRemoveSomeFooBase;
   void runOnOperation() final {
-    RewritePatternSet patterns(&getContext());
-    patterns.add<ListSwitchBarFooRewriter>(&getContext());
-    FrozenRewritePatternSet patternSet(std::move(patterns));
-    if (failed(applyPatternsGreedily(getOperation(), patternSet)))
-      signalPassFailure();
+    // Your pass code here
+    // ======================================================
+    ModuleOp module = getOperation();
+    module->walk([&](list::FooOp fooOp) {
+      if (fooOp->hasAttr("useless")) {
+	fooOp.replaceAllUsesWith(fooOp.getInput());
+	fooOp.erase();
+      }
+    });
+    // ======================================================
   }
 };
 } // namespace

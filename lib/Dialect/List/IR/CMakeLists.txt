@@ -1,4 +1,4 @@
-add_mlir_dialect_library(MLIRList
+add_mlir_dialect_library(MLIRListDialect
 	ListTypes.cpp
 	ListDialect.cpp
 	ListOps.cpp

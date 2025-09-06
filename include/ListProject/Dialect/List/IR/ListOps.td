@@ -99,11 +99,11 @@ def List_YieldOp : List_Op<"yield", [HasParent<"MapOp">, Terminator]> {
 	TODO
     }];
 
-    let arguments = (ins Variadic<List_ElementType>:$values);
+    let arguments = (ins List_ElementType:$value);
     let builders = [OpBuilder<(ins), [{ /* nothing to do */ }]>];
 
     let assemblyFormat = [{
-        attr-dict ($values^ `:` type($values))?
+        $value attr-dict `:` type($value)
     }];
     // hasVerifier = 1;
 }
