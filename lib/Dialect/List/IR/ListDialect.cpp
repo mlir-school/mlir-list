@@ -8,7 +8,6 @@
 
 #include "ListProject/Dialect/List/IR/ListDialect.h"
 #include "ListProject/Dialect/List/IR/ListOps.h"
-#include "ListProject/Dialect/List/IR/ListTypes.h"
 
 using namespace mlir;
 using namespace mlir::list;
@@ -24,5 +23,4 @@ void ListDialect::initialize() {
 #define GET_OP_LIST
 #include "ListProject/Dialect/List/IR/ListOps.cpp.inc"
       >();
-  registerTypes();
 }

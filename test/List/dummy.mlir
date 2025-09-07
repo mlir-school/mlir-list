@@ -8,10 +8,5 @@ module {
         %res = list.foo %0 : i32
         return
     }
-
-    // CHECK-LABEL: func @list_types(%arg0: !list.list<i32>)
-    func.func @list_types(%arg0: !list.list<i32>) {
-        return
-    }
 }
 
