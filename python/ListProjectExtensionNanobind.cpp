@@ -1,7 +1,7 @@
 //===- ListProjectExtension.cpp - Extension module --------------------------===//
 //
-// This is the nanobind version of the example module. There is also a pybind11
-// example in ListProjectExtensionPybind11.cpp.
+// This is the nanobind version of the example module. It's also possible to use
+// PyBind11
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -15,11 +15,31 @@
 
 namespace nb = nanobind;
 
+using namespace mlir;
+using namespace mlir::python;
+using namespace mlir::python::nanobind_adaptors;
+
 NB_MODULE(_listprojectDialectsNanobind, m) {
   //===--------------------------------------------------------------------===//
   // list dialect
   //===--------------------------------------------------------------------===//
   auto listM = m.def_submodule("list");
+
+  //===-------------------------------------------------------------------===//
+  // ListType
+  //===-------------------------------------------------------------------===//
+
+  auto mlirListType =
+      mlir_type_subclass(m, "ListType", mlirTypeIsAListType);
+
+  mlirListType.def_classmethod(
+      "get",
+      [](const nb::object &cls, MlirContext ctx, MlirType element_type) {
+        return cls(mlirListTypeGet(ctx, element_type));
+      },
+      "Gets an instance of ListType in the same context", nb::arg("cls"),
+      nb::arg("ctx"),
+      nb::arg("element_type"));
 
   listM.def(
       "register_dialect",

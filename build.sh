@@ -14,7 +14,6 @@ cmake -G Ninja \
   -DCMAKE_C_COMPILER=/usr/bin/clang \
   -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
   -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
-  -Dpybind11_DIR=`pybind11-config --cmakedir` \
   -DPython_FIND_VIRTUALENV=FIRST \
   -DPython3_FIND_VIRTUALENV=FIRST \
   -DLLVM_ENABLE_LLD=On \

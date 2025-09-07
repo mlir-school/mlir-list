@@ -17,20 +17,8 @@ declare_mlir_dialect_python_bindings(
   ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mlir_listproject"
   TD_FILE dialects/ListOps.td
   SOURCES
-    dialects/list_pybind11.py
     dialects/list_nanobind.py
   DIALECT_NAME list)
-
-
-declare_mlir_python_extension(ListProjectPythonSources.Pybind11Extension
-  MODULE_NAME _listprojectDialectsPybind11
-  ADD_TO_PARENT ListProjectPythonSources
-  SOURCES
-    ListProjectExtensionPybind11.cpp
-  EMBED_CAPI_LINK_LIBS
-    ListProjectCAPI
-  PYTHON_BINDINGS_LIBRARY pybind11
-)
 
 declare_mlir_python_extension(ListProjectPythonSources.NanobindExtension
   MODULE_NAME _listprojectDialectsNanobind
