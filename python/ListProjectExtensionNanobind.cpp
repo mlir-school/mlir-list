@@ -25,22 +25,6 @@ NB_MODULE(_listprojectDialectsNanobind, m) {
   //===--------------------------------------------------------------------===//
   auto listM = m.def_submodule("list");
 
-  //===-------------------------------------------------------------------===//
-  // ListType
-  //===-------------------------------------------------------------------===//
-
-  auto mlirListType =
-      mlir_type_subclass(m, "ListType", mlirTypeIsAListType);
-
-  mlirListType.def_classmethod(
-      "get",
-      [](const nb::object &cls, MlirContext ctx, MlirType element_type) {
-        return cls(mlirListTypeGet(ctx, element_type));
-      },
-      "Gets an instance of ListType in the same context", nb::arg("cls"),
-      nb::arg("ctx"),
-      nb::arg("element_type"));
-
   listM.def(
       "register_dialect",
       [](MlirContext context, bool load) {

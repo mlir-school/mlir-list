@@ -7,7 +7,6 @@ set(LIBS
     MLIRRegisterAllDialects
     MLIRRegisterAllPasses
     MLIRListDialect
-    MLIRListTransforms
   )
 add_llvm_executable(listproject-opt listproject-opt.cpp)
 

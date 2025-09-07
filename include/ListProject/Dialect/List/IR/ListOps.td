@@ -68,30 +68,6 @@ def List_RangeOp : List_Op<"range", [Pure]> {
     }];
 }
 
-def List_LengthOp : List_Op<"length", [Pure]> {
-    let summary = "Get the length of a list.";
-    let description = [{
-	    The `list.length` operand allows to retrieve the length of a list.
-
-        Example:
-
-        ```
-        %length = list.length %list : !list.list<i32> -> i32
-        ```
-    }];
-
-    let arguments = (ins AnyTypeOf<[List_ListType]>:$list);
-    // This version is better, but the whole type is not printed
-    //let arguments = (ins List_ListType:$list);
-
-    let results = (outs I32:$result);
-
-    let assemblyFormat = [{
-        $list attr-dict `:` type($list) `->` type($result)
-    }];
-    let hasCanonicalizer = 1;
-}
-
 def List_MapOp : List_Op<"map", [AffineScope, SingleBlockImplicitTerminator<"YieldOp">]> {
     let summary = "A yield op for list map.";
     let description = [{
@@ -119,7 +95,6 @@ def List_MapOp : List_Op<"map", [AffineScope, SingleBlockImplicitTerminator<"Yie
 	    Value getInductionVar() { return getBody().getArgument(0); }
     }];
     let hasCustomAssemblyFormat = 1;
-    let hasVerifier = 1;
 }
 
 def List_YieldOp : List_Op<"yield", [HasParent<"MapOp">, Terminator]> {
