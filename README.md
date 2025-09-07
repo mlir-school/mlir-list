@@ -11,6 +11,8 @@ The session is a hand-on where you will actually modify an out-of-tree MLIR proj
 
 #### Option 1: With Docker
 
+*Note: To run docker without sudo once you have install it, please follow the post-installation instructions: https://docs.docker.com/engine/install/linux-postinstall/*
+
 This is the simpliest option. You can download a prebuilt docker image by running:
 ```
 docker pull electrikspace/mlir-tutorial
@@ -19,11 +21,11 @@ Then you can run the docker and work inside with:
 ```
 docker run -it electrikspace/mlir-tutorial
 ```
-If you want edit files locally and build with from the docker, we suggest you to clone the project and mount it in the docker:
+If you want edit files locally and build with from the docker, we suggest you to clone the project and use the *in-docker* script, which basically run a command inside the docker env.
 ```
 git clone https://github.com/mlir-school/mlir-list.git
 chmod 777 mlir-list
-docker run --rm -it -v "$(realpath ./mlir-list):/home/mlir/mlir-list" electrikspace/mlir-tutorial
+./in-docker ./build.sh
 ```
 
 #### Option 2: With prebuilt packages
