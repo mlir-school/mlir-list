@@ -17,14 +17,6 @@ extern "C" {
 
 MLIR_DECLARE_CAPI_DIALECT_REGISTRATION(List, list);
 
-//===-------------------------------------------------------------------===//
-// ListType
-//===-------------------------------------------------------------------===//
-
-MLIR_CAPI_EXPORTED bool mlirTypeIsAListType(MlirType type);
-
-MLIR_CAPI_EXPORTED MlirType mlirListTypeGet(MlirContext ctx, MlirType elementType);
-
 #ifdef __cplusplus
 }
 #endif
