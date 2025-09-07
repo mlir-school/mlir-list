@@ -43,7 +43,16 @@ def List_FooOp : List_Op<"foo", [Pure,
 def List_RangeOp : List_Op<"range", [Pure]> {
     let summary = "Create a list from a range.";
     let description = [{
-	TODO
+        The `list.range` operation creates a list given a lower bound and
+        an upper bound.
+
+        Example:
+
+        ```mlir
+        %c0 = arith.constant 0 : i32
+        %c10 = arith.constant 10 : i32
+        %list = list.range %c0 to %c10 : !list.list<i32>
+        ```
     }];
 
     let arguments = (ins I32:$lowerBound,
@@ -60,12 +69,19 @@ def List_RangeOp : List_Op<"range", [Pure]> {
 def List_LengthOp : List_Op<"length", [Pure]> {
     let summary = "Get the length of a list.";
     let description = [{
-	TODO
+	    The `list.length` operand allows to retrieve the length of a list.
+
+        Example:
+
+        ```
+        %length = list.length %list : !list.list<i32> -> i32
+        ```
     }];
 
     let arguments = (ins AnyTypeOf<[List_ListType]>:$list);
     // This version is better, but the whole type is not printed
     //let arguments = (ins List_ListType:$list);
+
     let results = (outs I32:$result);
 
     let assemblyFormat = [{
@@ -77,7 +93,18 @@ def List_LengthOp : List_Op<"length", [Pure]> {
 def List_MapOp : List_Op<"map", [AffineScope, SingleBlockImplicitTerminator<"YieldOp">]> {
     let summary = "A yield op for list map.";
     let description = [{
-	TODO
+	    The `list.map` operation applies the inner block to each element of
+        a list.
+
+        Example:
+
+        ```
+        %pred_list = list.map %list with (%x : i32) -> i1 {
+            %c42 = arith.constant 2 : i32
+            %pred = arith.cmpi ult, %x, %c42 : i32
+            list.yield %pred : i1
+        }
+        ```
     }];
 
     let arguments = (ins List_ListType:$list);
@@ -86,8 +113,8 @@ def List_MapOp : List_Op<"map", [AffineScope, SingleBlockImplicitTerminator<"Yie
     let regions = (region SizedRegion<1>:$body);
 
     let extraClassDeclaration = [{
-	// Get induction Variable
-	Value getInductionVar() { return getBody().getArgument(0); }
+	    // Get induction Variable
+	    Value getInductionVar() { return getBody().getArgument(0); }
     }];
     let hasCustomAssemblyFormat = 1;
     let hasVerifier = 1;
@@ -96,7 +123,7 @@ def List_MapOp : List_Op<"map", [AffineScope, SingleBlockImplicitTerminator<"Yie
 def List_YieldOp : List_Op<"yield", [HasParent<"MapOp">, Terminator]> {
     let summary = "A yield op for list map.";
     let description = [{
-	TODO
+	    The `list.yield` operation is a terminator for a `list.map` operation.
     }];
 
     let arguments = (ins List_ElementType:$value);
@@ -105,7 +132,6 @@ def List_YieldOp : List_Op<"yield", [HasParent<"MapOp">, Terminator]> {
     let assemblyFormat = [{
         $value attr-dict `:` type($value)
     }];
-    // hasVerifier = 1;
 }
 
 #endif // LIST_OPS

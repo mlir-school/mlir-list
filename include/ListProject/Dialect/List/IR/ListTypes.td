@@ -28,7 +28,7 @@ def List_ListType : List_Type<"List", "list"> {
     let description = "List type in list dialect";
     let parameters = (ins List_ElementType:$element_type);
     let assemblyFormat = [{
-	`<` $element_type `>`
+	    `<` $element_type `>`
     }];
 }
 
