@@ -9,9 +9,11 @@
 #ifndef LIST_OPS
 #define LIST_OPS
 
-include "ListProject/Dialect/List/IR/ListTypes.td"
 include "mlir/Interfaces/InferTypeOpInterface.td"
 include "mlir/Interfaces/SideEffectInterfaces.td"
+
+include "ListProject/Dialect/List/IR/ListDialect.td"
+include "ListProject/Dialect/List/IR/ListTypes.td"
 
 def List_FooOp : List_Op<"foo", [Pure,
                                              SameOperandsAndResultType]> {
