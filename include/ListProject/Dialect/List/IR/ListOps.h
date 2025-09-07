@@ -15,8 +15,6 @@
 #include "mlir/Interfaces/InferTypeOpInterface.h"
 #include "mlir/Interfaces/SideEffectInterfaces.h"
 
-#include "ListProject/Dialect/List/IR/ListTypes.h"
-
 #define GET_OP_CLASSES
 #include "ListProject/Dialect/List/IR/ListOps.h.inc"
 
