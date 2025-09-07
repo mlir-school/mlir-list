@@ -16,11 +16,9 @@
 
 #include "ListProject/Dialect/List/IR/ListDialect.h"
 #include "ListProject/Dialect/List/Transforms/ListPasses.h"
-#include "ListProject/Conversion/Passes.h"
 
 int main(int argc, char **argv) {
   mlir::registerAllPasses();
-  mlir::registerConversionPasses();
   mlir::list::registerPasses();
 
   mlir::DialectRegistry registry;
