@@ -98,13 +98,16 @@ ParseResult MapOp::parse(OpAsmParser &parser, OperationState &result) {
 }
 
 LogicalResult MapOp::verify() {
-  // Check that the type of induction variable is the same as the inner type of input list
-  auto inputElementType = this->getList().getType().getElementType();
-  auto inductionVarType = this->getInductionVar().getType();
-  if (inputElementType != inductionVarType)
-    return emitError() << "Type of induction var (" << inductionVarType
-		       << ") is not the same as the inner type of the input list ("
-		       << inputElementType << ")";
+  // Check that the type of yielded value is the same
+  // as the element type of the result list
+  auto resultElementType = this->getResult().getType().getElementType();
+  auto yieldOp = dyn_cast<list::YieldOp>(this->getBody().front().back());
+  assert(yieldOp);
+  if (resultElementType != yieldOp.getValue().getType())
+    return emitError() << "Element type of the result list does not match "
+               << "the type of the yielded value: ("
+               << resultElementType << " vs "
+               << yieldOp.getValue().getType() << ")";
   return success();
 }
 
