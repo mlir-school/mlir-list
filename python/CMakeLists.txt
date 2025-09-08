@@ -3,7 +3,7 @@ include(AddMLIRPython)
 # Specifies that all MLIR packages are co-located under the `mlir_listproject`
 # top level package (the API has been embedded in a relocatable way).
 # TODO: Add an upstream cmake param for this vs having a global here.
-add_compile_definitions("MLIR_PYTHON_PACKAGE_PREFIX=mlir_listproject.")
+add_compile_definitions("MLIR_PYTHON_PACKAGE_PREFIX=${MLIR_PYTHON_PACKAGE_PREFIX}.")
 
 
 ################################################################################
@@ -28,6 +28,7 @@ declare_mlir_python_extension(ListProjectPythonSources.NanobindExtension
   EMBED_CAPI_LINK_LIBS
     ListProjectCAPI
   PYTHON_BINDINGS_LIBRARY nanobind
+  GENERATE_TYPE_STUBS
 )
 
 
@@ -37,8 +38,8 @@ declare_mlir_python_extension(ListProjectPythonSources.NanobindExtension
 
 add_mlir_python_common_capi_library(ListProjectPythonCAPI
   INSTALL_COMPONENT ListProjectPythonModules
-  INSTALL_DESTINATION python_packages/listproject/mlir_listproject/_mlir_libs
-  OUTPUT_DIRECTORY "${MLIR_BINARY_DIR}/python_packages/listproject/mlir_listproject/_mlir_libs"
+  INSTALL_DESTINATION "${MLIR_BINDINGS_PYTHON_INSTALL_PREFIX}/_mlir_libs"
+  OUTPUT_DIRECTORY "${MLIR_BINARY_DIR}/${MLIR_BINDINGS_PYTHON_INSTALL_PREFIX}/_mlir_libs"
   RELATIVE_INSTALL_ROOT "../../../.."
   DECLARED_SOURCES
     ListProjectPythonSources
@@ -46,6 +47,10 @@ add_mlir_python_common_capi_library(ListProjectPythonCAPI
     # available.
     MLIRPythonExtension.RegisterEverything
     MLIRPythonSources.Core
+    MLIRPythonSources.Dialects.builtin
+    MLIRPythonSources.Dialects.arith
+    MLIRPythonSources.Dialects.memref
+    # Add other dialects here, or import all with MLIRPythonSources.Dialects
 )
 
 ################################################################################
@@ -53,14 +58,18 @@ add_mlir_python_common_capi_library(ListProjectPythonCAPI
 ################################################################################
 
 add_mlir_python_modules(ListProjectPythonModules
-  ROOT_PREFIX "${MLIR_BINARY_DIR}/python_packages/listproject/mlir_listproject"
-  INSTALL_PREFIX "python_packages/listproject/mlir_listproject"
+  ROOT_PREFIX "${MLIR_BINARY_DIR}/${MLIR_BINDINGS_PYTHON_INSTALL_PREFIX}"
+  INSTALL_PREFIX "${MLIR_BINDINGS_PYTHON_INSTALL_PREFIX}"
   DECLARED_SOURCES
     ListProjectPythonSources
     # TODO: Remove this in favor of showing fine grained registration once
     # available.
     MLIRPythonExtension.RegisterEverything
-    MLIRPythonSources
+    MLIRPythonSources.Core
+    MLIRPythonSources.Dialects.builtin
+    MLIRPythonSources.Dialects.memref
+    MLIRPythonSources.Dialects.arith
+    # Add other dialects here, or import all with MLIRPythonSources.Dialects
   COMMON_CAPI_LINK_LIBS
     ListProjectPythonCAPI
   )
