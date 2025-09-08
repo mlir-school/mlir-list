@@ -89,6 +89,8 @@ def List_LengthOp : List_Op<"length", [Pure]> {
     let assemblyFormat = [{
         $list attr-dict `:` type($list) `->` type($result)
     }];
+
+    REMOVE_ME!! Declare a custom canonicalizer !!REMOVE_ME
     let hasCanonicalizer = 1;
 }
 
