@@ -21,6 +21,7 @@ MLIR_DEFINE_CAPI_DIALECT_REGISTRATION(List, list,
 // ListType
 //===-------------------------------------------------------------------===//
 
+REMOVE_ME!!! Implement the wrappers here!!!REMOVE_ME
 bool mlirTypeIsAListType(MlirType type) {
   return isa<list::ListType>(unwrap(type));
 }

@@ -21,6 +21,7 @@ MLIR_DECLARE_CAPI_DIALECT_REGISTRATION(List, list);
 // ListType
 //===-------------------------------------------------------------------===//
 
+REMOVE_ME!!! Declare CAPI wrappers for !list.list<> type !!!REMOVE_ME
 MLIR_CAPI_EXPORTED bool mlirTypeIsAListType(MlirType type);
 
 MLIR_CAPI_EXPORTED MlirType mlirListTypeGet(MlirContext ctx, MlirType elementType);

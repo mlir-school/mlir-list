@@ -5,3 +5,6 @@
 from ._list_ops_gen import *
 from .._mlir_libs._listprojectDialectsNanobind.list import *
 from .._mlir_libs._listprojectDialectsNanobind import *
+
+REMOVE_ME!!! Add your custom Python code here              !!!REMOVE_ME
+REMOVE_ME!!! For example: Redefinition of a boring builder !!!REMOVE_ME
