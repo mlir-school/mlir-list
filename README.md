@@ -147,21 +147,40 @@ One of the main things that a dialect bring are new type, attributes, and operat
 
 For this first exercise, follow the error in the failing `.td` file and fix the declaration of the `list.foo` operation.
 
-*Note: Don't forget to remove the TODO once you have finished the exercise ;)*
+*Note: Don't forget to remove the TODO  ;)*
 
 ### Exercise 2: A type: `!list.list<>`
 
 Before you create operations operating on lists, you will need to define a list type. Type definition can be done in `ODS`. Follow the error and fix the definition of the `ListType`.
 
-[Clue](https://mlir.llvm.org/docs/DefiningDialects/AttributesAndTypes/#adding-a-new-attribute-or-type-definition)
+**Clues**:
 
-*Note: Don't forget to remove the TODO once you have finished the exercise ;)*
+- ElementType is built by constraints: https://mlir.llvm.org/docs/DefiningDialects/Constraints/*
+```td
+// Example: Element type constraint for VectorType
+def Builtin_VectorTypeElementType : AnyTypeOf<[AnyInteger, Index, AnyFloat]>;
+```
+
+- ListType is full type defined in ODS: (https://mlir.llvm.org/docs/DefiningDialects/AttributesAndTypes/#adding-a-new-attribute-or-type-definition)
+```td
+// Example: nvgpu.warpgroup.descriptor
+def NVGPU_WarpgroupMatrixDescriptor : NVGPU_Type<"WarpgroupMatrixDescriptor", "warpgroup.descriptor", []> {
+  let summary = "Warpgroup matrix descriptor type";
+  let description = [{...}];
+  let parameters = (ins "MemRefType":$tensor);
+  let assemblyFormat = "`<` struct(params) `>`";
+}
+```
+
+*Note: Don't forget to remove the TODO ;)*
 
 ### Exercise 3: Some operations: `list.range`, `list.map`, and `list.yield`
 
 Now it's time to create your first real operation of the List dialect. In this exercise, you will learn how to write these operations in [ODS](https://mlir.llvm.org/docs/DefiningDialects/Operations/).
 
-*Note: Don't forget to remove the TODO once you have finished the exercise ;)*
+Follow the errors to fix the code. You **only need to replace the TODO!!!TODO** by your code, and **delete the REMOVE_ME!!!...!!!REMOVE_ME**. You should be able to complete the exercise by loop at other operations around, bu you can also read [this chapter from the Toy tutorial](https://mlir.llvm.org/docs/Tutorials/Toy/Ch-2/) or the [ODS](https://mlir.llvm.org/docs/DefiningDialects/Operations/#operation-definition) documentation.
+
+*Note: Don't forget to remove the TODO and REMOVE_ME ;)*
 
 ### Exercise 4: A verifier for `list.map`
 
@@ -169,7 +188,20 @@ Huston, we have a problem. It seems that you can write a `list.map` that returns
 
 Operation definition allows you to add a custom verifier in C++. This may solve the issue.
 
-*Note: Don't forget to remove the TODO once you have finished the exercise ;)*
+Follow the errors to fix the verifier of the `list.map`.
+
+**Clues**:
+- Documentation on class [Value](https://mlir.llvm.org/doxygen/classmlir_1_1Value.html)
+- Given the ODS Definition of Types and ops you did before, getters are automatically generated for params/arguments/results:
+```cpp
+// Example: Access $tensor with .getTensor() 
+let parameters = (ins "MemRefType":$tensor);
+// Example: Access $input with .getInput()
+let arguments = (ins I32:$input);
+```
+- (not used normally: Documentation on class [Operation](https://mlir.llvm.org/doxygen/classmlir_1_1Operation.html))
+
+*Note: Don't forget to remove the TODO and REMOVE_ME ;)*
 
 ### Exercise 5: Add `list.length` with a canonicalization pattern
 
@@ -187,7 +219,12 @@ To do this in MLIR, you can implement a canonicalization pattern on the `list.le
 
 Follow the error and fix the canonicalization pattern for `list.length`.
 
-*Note: Don't forget to remove the TODO once you have finished the exercise ;)*
+**Clues**:
+- Documentation on class [Value](https://mlir.llvm.org/doxygen/classmlir_1_1Value.html)
+- Documentation on class [Operation](https://mlir.llvm.org/doxygen/classmlir_1_1Operation.html))
+- llvm [`dyn_cast`](https://llvm.org/docs/ProgrammersManual.html#the-isa-cast-and-dyn-cast-templates)
+
+*Note: Don't forget to remove the TODO and REMOVE_ME ;)*
 
 ### Exercise 6: A transform Pass
 
@@ -195,9 +232,14 @@ Now you have all the basics list operation. So you can begin to manipulate the I
 
 There are two types of passes: Transformations that operate at a giving dialect, and Conversion/lowering passes that convert from a dialect to anothers.
 
-For this exercise, you will write a (dummy) transformation that removes `list.foo` operates only if it contains an atttribute named `useless`. In this case, you have to replace the result by the input. 
+For this exercise, you will write a (dummy) transformation that removes `list.foo` ops only if it contains an atttribute named `useless`. In this case, you have to replace the result by the input. 
 
-*Note: Don't forget to remove the TODO once you have finished the exercise ;)*
+**Clues**:
+- Documentation on class [Operation](https://mlir.llvm.org/doxygen/classmlir_1_1Operation.html))
+
+*Note: [to Understand the walker used in the pass](https://mlir.llvm.org/docs/Tutorials/UnderstandingTheIRStructure/)*
+
+*Note: Don't forget to remove the TODO and REMOVE_ME ;)*
 
 ### Exercise 7: A lowering Pass
 
@@ -209,9 +251,13 @@ A lowering pass can be seen as a Conversion from a dialect to one or many others
 
 Fix the conversion pass from list to SCF/Arith/Tensor dialects.
 
-*The list conversion pass does not require a special [`TypeConverter`](https://mlir.llvm.org/docs/DialectConversion/#type-converter), because there is not remaining operation operating on `!list.list<>` once all conversion pattern have been applied.*
+**Clues**:
+- Documentation on class [ConversionPatternRewriter](https://mlir.llvm.org/doxygen/classmlir_1_1ConversionPatternRewriter.html). (Don't forget to also explore inherited methods)
+- [`tensor.dim`](https://mlir.llvm.org/docs/Dialects/TensorOps/#tensordim-tensordimop)
 
-*Note: Don't forget to remove the TODO once you have finished the exercise ;)*
+*Note: The list conversion pass does not require a special [`TypeConverter`](https://mlir.llvm.org/docs/DialectConversion/#type-converter), because there is not remaining operation operating on `!list.list<>` once all conversion pattern have been applied.*
+
+*Note: Don't forget to remove the TODO and REMOVE_ME ;)*
 
 ### Exercise 8: Python bindings
 
@@ -223,6 +269,12 @@ MLIR exposes a [C API](https://mlir.llvm.org/docs/CAPI/) to manipulate the IR fr
 
 Aside from the dialect registration, you can have most of the bindings for free. But if you have created new types or attributes, you will need to add [CAPI](https://mlir.llvm.org/docs/CAPI/#extensions-for-dialect-attributes-and-types) and [Python](https://mlir.llvm.org/docs/Bindings/Python/#attributes-and-types-2) bindings by yourself.
 
-For this last exercise, feel free to explore the CAPI under `include/ListProject-c/` and `lib/CAPI/`. The extensions for Python ar under `python/`, which contains Nanobind code in C++ and Python code under `python/mlir_listproject/` 
+For this last exercise, feel free to explore the CAPI under `include/ListProject-c/` and `lib/CAPI/`. The extensions for Python ar under `python/`, which contains Nanobind code in C++ and Python code under `python/mlir_listproject/`.
 
-*Note: Don't forget to remove the TODO once you have finished the exercise ;)*
+Follow the errors to understand how to create bindings for the `list.list<>` type. 
+
+*Note: Don't forget to remove the TODO and REMOVE_ME ;)*
+
+### Beyond
+
+This project is derived from the standalone example in `llvm-project/mlir/examples/standalone/`. Feel free to reuse and adapt this code or the standalone example to create your own dialect.
