@@ -21,15 +21,15 @@ class List_Type<string name, string typeMnemonic, list<Trait> traits = []>
   let mnemonic = typeMnemonic;
 }
 
-def List_ElementType: AnyTypeOf<[AnyInteger, AnyFloat]>;
+// TODO ElementType can be any integer
+def List_ElementType: TODO!!!TODO;
 
+// TODO ListType takes an ElementType as parameter
 def List_ListType : List_Type<"List", "list"> {
     let summary = "List list type";
     let description = "List type in list dialect";
-    let parameters = (ins List_ElementType:$element_type);
-    let assemblyFormat = [{
-	    `<` $element_type `>`
-    }];
+    let parameters = TODO!!!TODO;
+    let assemblyFormat = TODO!!!TODO;
 }
 
 #endif // LIST_TYPES
