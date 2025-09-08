@@ -21,9 +21,9 @@
 #include "mlir/Transforms/DialectConversion.h"
 #include "mlir/Transforms/Passes.h"
 
+#include "ListProject/Dialect/List/IR/ListDialect.h"
 #include "ListProject/Dialect/List/IR/ListOps.h"
 
-#include <iostream>
 namespace mlir {
 #define GEN_PASS_DEF_LOWERLISTPASS
 #include "ListProject/Conversion/Passes.h.inc"
@@ -33,12 +33,15 @@ using namespace mlir;
 using namespace mlir::list;
 
 namespace {
+
+// Convert a !list.list<> to tensor<>
 Type convertListType(Type type) {
   if (auto listType = dyn_cast<ListType>(type))
     return RankedTensorType::get({ShapedType::kDynamic}, listType.getElementType());
   return type;
 }
 
+// Pattern for list.range
 class ListRangeLowering : public OpConversionPattern<list::RangeOp> {
   using OpConversionPattern::OpConversionPattern;
 
@@ -68,6 +71,7 @@ class ListRangeLowering : public OpConversionPattern<list::RangeOp> {
   }
 };
 
+// Pattern for list.length
 class ListLengthLowering : public OpConversionPattern<list::LengthOp> {
   using OpConversionPattern::OpConversionPattern;
 
@@ -77,12 +81,13 @@ class ListLengthLowering : public OpConversionPattern<list::LengthOp> {
     auto c0 = rewriter.create<arith::ConstantIndexOp>
       (op.getLoc(), 0).getResult();
     auto dimSize = rewriter.create<tensor::DimOp>
-      (op.getLoc(), op.getList(), c0).getResult();
+      (op.getLoc(), adaptor.getList(), c0).getResult();
     rewriter.replaceOp(op, dimSize);
     return success();
   }
 };
 
+// Pattern for list.map
 class ListMapLowering : public OpConversionPattern<list::MapOp> {
   using OpConversionPattern::OpConversionPattern;
 
@@ -133,11 +138,14 @@ class LowerList : public impl::LowerListPassBase<LowerList> {
   void runOnOperation() override {
     RewritePatternSet patterns(&getContext());
     populateListToStdConversionPatterns(patterns);
+    
     ConversionTarget target(getContext());
-    target.addLegalDialect<arith::ArithDialect, tensor::TensorDialect,
+    target.addLegalDialect<arith::ArithDialect,
+                           tensor::TensorDialect,
                            scf::SCFDialect>();
+    target.addIllegalDialect<list::ListDialect>();
     if (failed(applyPartialConversion(getOperation(), target,
-                                      std::move(patterns))))
+                                   std::move(patterns))))
       signalPassFailure();
   }
 };
