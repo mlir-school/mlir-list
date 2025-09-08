@@ -34,6 +34,7 @@ using namespace list;
 // MapOp
 //===----------------------------------------------------------------------===//
 
+REMOVE_ME!! Here are the custom map printers and parser, take a look!!REMOVE_ME
 void MapOp::print(OpAsmPrinter &p) {
   p << " " << getList();
   p << " with ";
