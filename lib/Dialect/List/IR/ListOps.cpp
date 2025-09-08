@@ -100,13 +100,25 @@ ParseResult MapOp::parse(OpAsmParser &parser, OperationState &result) {
 LogicalResult MapOp::verify() {
   // Check that the type of yielded value is the same
   // as the element type of the result list
-  auto resultElementType = this->getResult().getType().getElementType();
+
+  // TODO 1. Get the result
+  auto mapResult = TODO!!!!TODO;
+
+  // TODO 2. Get the ElementType of the Type of the result
+  Type mapResultElementType = mapResult.TODO!!! Get type of a Value!!!.getElementType();
+
+  // 3. Get the yield op
   auto yieldOp = dyn_cast<list::YieldOp>(this->getBody().front().back());
   assert(yieldOp);
-  if (resultElementType != yieldOp.getValue().getType())
+
+  // TODO 4. get the type of value of the yield op
+  Type yieldedType = TODO!!!TODO;
+
+  // 5. Check and emit an error if the types does not match
+  if (mapResultElementType != yieldedType)
     return emitError() << "Element type of the result list does not match "
                << "the type of the yielded value: ("
-               << resultElementType << " vs "
+               << mapResultElementType << " vs "
                << yieldOp.getValue().getType() << ")";
   return success();
 }

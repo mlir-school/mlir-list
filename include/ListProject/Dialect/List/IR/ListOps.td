@@ -95,6 +95,8 @@ def List_MapOp : List_Op<"map", [AffineScope, SingleBlockImplicitTerminator<"Yie
 	    Value getInductionVar() { return getBody().getArgument(0); }
     }];
     let hasCustomAssemblyFormat = 1;
+
+    REMOVE_ME!! Declare a custom verifier with this !!REMOVE_ME 
     let hasVerifier = 1;
 }
 
