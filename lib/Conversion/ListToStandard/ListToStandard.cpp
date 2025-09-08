@@ -32,14 +32,10 @@ namespace mlir {
 using namespace mlir;
 using namespace mlir::list;
 
-
-
 namespace {
-Type convertListType(Type type, int64_t size = -1) {
-  if (auto listType = dyn_cast<ListType>(type)) {
-    SmallVector<int64_t> shape = {size};
-    return RankedTensorType::get(shape, listType.getElementType());
-  }
+Type convertListType(Type type) {
+  if (auto listType = dyn_cast<ListType>(type))
+    return RankedTensorType::get({ShapedType::kDynamic}, listType.getElementType());
   return type;
 }
 
@@ -55,7 +51,6 @@ class ListRangeLowering : public OpConversionPattern<list::RangeOp> {
       (op.getLoc(), 1).getResult();
     auto length = rewriter.create<arith::SubIOp>(op.getLoc(), op.getUpperBound(), op.getLowerBound()).getResult();
     auto lengthIndex = rewriter.create<arith::IndexCastOp>(op.getLoc(), rewriter.getIndexType(), length).getResult();
-    auto tensorType = convertListType(op.getResult().getType());
 
     SmallVector<OpFoldResult> tensorShape = {lengthIndex};
     auto emptyTensor = rewriter.create<tensor::EmptyOp>(op.getLoc(), tensorShape,
@@ -98,7 +93,6 @@ class ListMapLowering : public OpConversionPattern<list::MapOp> {
       (op.getLoc(), 0).getResult();
     auto c1 = rewriter.create<arith::ConstantIndexOp>
       (op.getLoc(), 1).getResult();
-    auto tensorType = convertListType(op.getList().getType());
     auto dimSize = rewriter.create<tensor::DimOp>
       (op.getLoc(), adaptor.getList(), c0).getResult();
     auto resultTensorType = convertListType(op.getResult().getType());
