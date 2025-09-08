@@ -78,11 +78,16 @@ class ListLengthLowering : public OpConversionPattern<list::LengthOp> {
   LogicalResult
   matchAndRewrite(list::LengthOp op, OpAdaptor adaptor,
                   ConversionPatternRewriter &rewriter) const override {
-    auto c0 = rewriter.create<arith::ConstantIndexOp>
-      (op.getLoc(), 0).getResult();
-    auto dimSize = rewriter.create<tensor::DimOp>
-      (op.getLoc(), adaptor.getList(), c0).getResult();
-    rewriter.replaceOp(op, dimSize);
+    // 1. Get the lowered list, so a tensor
+    Value tensor = adaptor.getList();
+
+    // 2. TODO create a tensor.dim op to extract the size of dim 0
+    // Clue: You may need to create a constant with value 0 before
+    TODO!!!TODO
+
+    // 3. TODO replace the op by the result of the tensor.dim
+    TODO!!!!TODO
+
     return success();
   }
 };
@@ -127,6 +132,8 @@ class ListMapLowering : public OpConversionPattern<list::MapOp> {
 } // namespace
 
 void mlir::populateListToStdConversionPatterns(RewritePatternSet &patterns) {
+  REMOVE_ME!!! By experience, if your pattern seems no to be applied, !!!REMOVE_ME 
+  REMOVE_ME!!! check that it has been added here                      !!!REMOVE_ME
   patterns.add<
       ListRangeLowering,
       ListLengthLowering,
@@ -135,10 +142,12 @@ void mlir::populateListToStdConversionPatterns(RewritePatternSet &patterns) {
 
 namespace {
 class LowerList : public impl::LowerListPassBase<LowerList> {
+  REMOVE_ME!!! Like other passes, entry point is runOnOperation !!!REMOVE_ME
   void runOnOperation() override {
     RewritePatternSet patterns(&getContext());
     populateListToStdConversionPatterns(patterns);
     
+    REMOVE_ME!!! No list op should remain, so mark the dialect as illegal !!!REMOVE_ME
     ConversionTarget target(getContext());
     target.addLegalDialect<arith::ArithDialect,
                            tensor::TensorDialect,
