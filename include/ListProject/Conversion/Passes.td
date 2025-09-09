@@ -15,7 +15,6 @@ include "mlir/Pass/PassBase.td"
 // LowerList
 //===----------------------------------------------------------------------===//
 
-REMOVE_ME!! Declare you conversion pass !!!REMOVE_ME
 def LowerListPass : Pass<"lower-list"> {
   let summary = "Lower List dialect into scf and tensor operations";
   let description = [{

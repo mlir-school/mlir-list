@@ -26,7 +26,6 @@ class ValueRange;
 
 /// Collect a set of patterns to convert from the List dialect to the Standard
 /// dialect
-REMOVE_ME!! a function declaration...why not !!!REMOVE_ME
 void populateListToStdConversionPatterns(RewritePatternSet &patterns);
 
 } // namespace mlir
