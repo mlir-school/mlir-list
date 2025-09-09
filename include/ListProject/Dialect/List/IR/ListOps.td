@@ -42,7 +42,7 @@ def List_FooOp : List_Op<"foo", [Pure,
     }];
 }
 
-def List_RangeOp : List_Op<"range", [Pure REMOVE_ME!!Traits and interfaces are here!!REMOVE_ME]> {
+def List_RangeOp : List_Op<"range", [Pure]> {
     let summary = "Create a list from a range.";
     let description = [{
         The `list.range` operation creates a list given a lower bound and
@@ -57,8 +57,8 @@ def List_RangeOp : List_Op<"range", [Pure REMOVE_ME!!Traits and interfaces are h
         ```
     }];
 
-    // TODO this operation takes 2 I32 argument for lower bound and upper bound
-    let arguments = (ins TODO!!!TODO);
+    let arguments = (ins I32:$lowerBound,
+                         I32:$upperBound);
     let results = (outs AnyTypeOf<[List_ListType]>:$result);
     // This version is better, but the whole type is not printed
     //let results = (outs List_ListType:$result);
@@ -88,14 +88,12 @@ def List_MapOp : List_Op<"map", [AffineScope, SingleBlockImplicitTerminator<"Yie
     let arguments = (ins List_ListType:$list);
     let results = (outs List_ListType:$result);
     
-    REMOVE_ME!! Note that this operation has a region with a single block !!REMOVE_ME
     let regions = (region SizedRegion<1>:$body);
 
     let extraClassDeclaration = [{
 	    // Get induction Variable
 	    Value getInductionVar() { return getBody().getArgument(0); }
     }];
-    REMOVE_ME!! Note that this operation has a custom assembly format in C++ !!REMOVE_ME
     let hasCustomAssemblyFormat = 1;
 }
 
@@ -108,7 +106,10 @@ def List_YieldOp : List_Op<"yield", [HasParent<"MapOp">, Terminator]> {
     let arguments = (ins List_ElementType:$value);
     let builders = [OpBuilder<(ins), [{ /* nothing to do */ }]>];
 
-    let assemblyFormat = TODO!!!TODO;
+    let assemblyFormat = [{
+        $value attr-dict `:` type($value)
+    }];
+
 }
 
 #endif // LIST_OPS
