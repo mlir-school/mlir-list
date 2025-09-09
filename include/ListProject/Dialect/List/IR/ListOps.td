@@ -96,7 +96,6 @@ def List_MapOp : List_Op<"map", [AffineScope, SingleBlockImplicitTerminator<"Yie
     }];
     let hasCustomAssemblyFormat = 1;
 
-    REMOVE_ME!! Declare a custom verifier with this !!REMOVE_ME 
     let hasVerifier = 1;
 }
 
