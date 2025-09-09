@@ -128,16 +128,14 @@ struct EraseLengthOfRange : public OpRewritePattern<LengthOp> {
     if (!list.getDefiningOp())
       return failure();
 
-    // 3. TODO make sure that list has One Use, or stop
-    if (TODO!!!TODO)
+    // 3. make sure that list has One Use, or stop
+    if (!list.hasOneUse())
       return failure();
 
     // 4. TODO Check that definingOp of list is a RangeOp
     // You may take a look at dyn_cast
-    if (auto rangeOp = TODO!!!TODO) {
+    if (auto rangeOp = dyn_cast<list::RangeOp>(*list.getDefiningOp())) {
         // 5. Build a arith.subi
-        REMOVE_ME!! Note that further cse will simplify the case of arith.subi !!REMOVE_ME
-        REMOVE_ME!! of two constants                                           !!REMOVE_ME
 	    auto lowerBound = rangeOp.getLowerBound();
 	    auto upperBound = rangeOp.getUpperBound();
 	    auto length = rewriter.create<arith::SubIOp>(lengthOp.getLoc(), upperBound, lowerBound).getResult();
@@ -155,6 +153,5 @@ struct EraseLengthOfRange : public OpRewritePattern<LengthOp> {
 
 void LengthOp::getCanonicalizationPatterns(RewritePatternSet &results,
 						 MLIRContext *context) {
-  REMOVE_ME!! Add your canonicalization patterns here
   results.add<EraseLengthOfRange>(context);
 }
