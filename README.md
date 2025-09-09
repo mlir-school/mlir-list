@@ -163,12 +163,12 @@ def Builtin_VectorTypeElementType : AnyTypeOf<[AnyInteger, Index, AnyFloat]>;
 
 - ListType is full type defined in ODS: (https://mlir.llvm.org/docs/DefiningDialects/AttributesAndTypes/#adding-a-new-attribute-or-type-definition)
 ```td
-// Example: nvgpu.warpgroup.descriptor
-def NVGPU_WarpgroupMatrixDescriptor : NVGPU_Type<"WarpgroupMatrixDescriptor", "warpgroup.descriptor", []> {
-  let summary = "Warpgroup matrix descriptor type";
-  let description = [{...}];
-  let parameters = (ins "MemRefType":$tensor);
-  let assemblyFormat = "`<` struct(params) `>`";
+// Example from standalone MLIR example
+def Standalone_CustomType : Standalone_Type<"Custom", "custom"> {
+    let summary = "Standalone custom type";
+    let description = "Custom type in standalone dialect";
+    let parameters = (ins StringRefParameter<"the custom value">:$value);
+    let assemblyFormat = "`<` $value `>`";
 }
 ```
 
