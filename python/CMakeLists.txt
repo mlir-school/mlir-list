@@ -5,8 +5,6 @@ include(AddMLIRPython)
 # TODO: Add an upstream cmake param for this vs having a global here.
 add_compile_definitions("MLIR_PYTHON_PACKAGE_PREFIX=${MLIR_PYTHON_PACKAGE_PREFIX}.")
 
-REMOVE_ME!!! A lot of cmake to bridge CAPI with binding bindings !!!REMOVE_ME
-
 ################################################################################
 # Sources
 ################################################################################

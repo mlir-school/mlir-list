@@ -26,14 +26,13 @@ NB_MODULE(_listprojectDialectsNanobind, m) {
   // ListType
   //===-------------------------------------------------------------------===//
 
-  REMOVE_ME!!! Create the bindings here!!!REMOVE_ME
   auto mlirListType =
       mlir_type_subclass(m, "ListType", mlirTypeIsAListType);
 
   mlirListType.def_classmethod(
       "get",
       [](const nb::object &cls, MlirContext ctx, MlirType element_type) {
-        return cls(TODO!!! call wrapper to get a ListType!!!TODO);
+        return cls(mlirListTypeGet(ctx, element_type));
       },
       "Gets an instance of ListType in the same context", nb::arg("cls"),
       nb::arg("ctx"),
