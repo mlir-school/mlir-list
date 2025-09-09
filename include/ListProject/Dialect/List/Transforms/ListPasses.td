@@ -11,8 +11,6 @@
 
 include "mlir/Pass/PassBase.td"
 
-REMOVE_ME!!! Declare a pass that operates on ModuleOp !!!REMOVE_ME
-REMOVE_ME!!! "list-remove-some-foo" is the exposed name in listproject-opt !!!REMOVE_ME
 def ListRemoveSomeFoo: Pass<"list-remove-some-foo", "::mlir::ModuleOp"> {
   let summary = "Remove some `foo` operations.";
   let description = [{

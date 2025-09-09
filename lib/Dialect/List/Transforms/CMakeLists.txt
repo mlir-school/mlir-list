@@ -1,6 +1,3 @@
-
-REMOVE_ME!!! Sometimes you need to write (copy paste) cmake stuff !!!REMOVE_ME
-
 add_mlir_dialect_library(MLIRListTransforms
 	ListPasses.cpp
 

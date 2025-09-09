@@ -28,12 +28,11 @@ public:
     ModuleOp moduleOp = getOperation();
 
     // 1. Walk on all list.foo ops
-    REMOVE_ME!!! Note that we use a walker here !!!REMOVE_ME
     moduleOp->walk([&](list::FooOp fooOp) {
-      // 2. TODO check if the op as a "useless" attribute
-      if (TODO!!!!TODO) {
-        // 3. TODO replace all uses with the op input
-        TODO!!!!TODO
+      // 2. check if the op as a "useless" attribute
+      if (fooOp->hasAttr("useless")) {
+        // 3. replace all uses with the op input
+        fooOp.getResult().replaceAllUsesWith(fooOp.getInput());
 
         // 4. erase op
         fooOp.erase();
