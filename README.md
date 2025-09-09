@@ -18,11 +18,11 @@ The session is a hand-on where you will actually modify an out-of-tree MLIR proj
 
 This is the simpliest option. You can download a prebuilt docker image by running:
 ```
-docker pull electrikspace/mlir-tutorial:mlir-list
+docker pull electrikspace/mlir-tutorial:v2
 ```
 Then you can run the docker and work inside with:
 ```
-docker run -it electrikspace/mlir-tutorial:mlir-list
+docker run -it electrikspace/mlir-tutorial:v2
 ```
 If you want edit files locally and build with from the docker, we suggest you to clone the project and use the *in-docker* script, which basically run a command inside the docker env.
 ```
