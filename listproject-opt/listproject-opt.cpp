@@ -20,7 +20,7 @@
 
 int main(int argc, char **argv) {
   mlir::registerAllPasses();
-  mlir::registerConversionPasses();
+  mlir::registerListConversionPasses();
   mlir::list::registerPasses();
 
   mlir::DialectRegistry registry;
